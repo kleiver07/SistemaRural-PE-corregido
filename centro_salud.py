@@ -36,7 +36,6 @@ class CentroSalud:
         self._siguiente_id = 1
         self.cargar()
 
-    # ---------- Singleton ----------
     @classmethod
     def obtener_instancia(cls, seguridad=None, almacen=None) -> "CentroSalud":
         """Devuelve la única instancia; la primera vez exige las dependencias."""
@@ -53,7 +52,6 @@ class CentroSalud:
         """Descarta la instancia actual (se usa en pruebas y al cerrar el programa)."""
         cls._instancia = None
 
-    # ---------- Pacientes ----------
     def registrar_paciente(self, nombre: str, dni: str, fecha_nacimiento: date) -> Paciente:
         dni_hash = self._seguridad.proteger_dni(dni)
         if dni_hash in self._pacientes:
@@ -79,7 +77,6 @@ class CentroSalud:
         paciente = self._pacientes.get(dni_hash)
         return paciente.nombre if paciente else "(paciente no encontrado)"
 
-    # ---------- Citas ----------
     def _validar_cita_duplicada(
         self,
         paciente_hash: str,
@@ -189,7 +186,6 @@ class CentroSalud:
             "total": sum(por_especialidad.values()),
         }
 
-    # ---------- Persistencia ----------
     def guardar(self) -> None:
         self._almacen.guardar(
             {
