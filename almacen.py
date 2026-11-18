@@ -49,7 +49,6 @@ class AlmacenJSON:
                 f"No se pudo guardar el archivo de datos: {error}"
             ) from error
         finally:
-            # Si ``os.replace`` tuvo éxito el temporal ya no existe.
             try:
                 Path(ruta_temporal).unlink(missing_ok=True)
             except OSError:
