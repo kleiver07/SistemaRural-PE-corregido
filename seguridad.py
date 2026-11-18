@@ -22,8 +22,6 @@ def validar_dni(dni: str) -> str:
     if not isinstance(dni, str):
         raise DatoInvalidoError("El DNI debe ingresarse como texto.")
     dni = dni.strip()
-    # ``str.isdigit()`` acepta dígitos Unicode (por ejemplo, de ancho completo
-    # o superíndices); la expresión regular exige exactamente dígitos ASCII.
     if not re.fullmatch(rf"[0-9]{{{LONGITUD_DNI}}}", dni):
         raise DatoInvalidoError(f"El DNI debe tener {LONGITUD_DNI} dígitos numéricos.")
     return dni
