@@ -39,8 +39,6 @@ def _texto_no_vacio(valor, campo: str) -> str:
 
 
 def _validar_fecha(valor, campo: str) -> date:
-    # ``datetime`` es subclase de ``date``: se normaliza para no guardar horas
-    # que después no se pueden reconstruir con ``date.fromisoformat``.
     if isinstance(valor, datetime):
         valor = valor.date()
     if type(valor) is not date:
@@ -52,7 +50,7 @@ class Persona(ABC):
     """Clase base abstracta para las personas del sistema."""
 
     def __init__(self, nombre: str):
-        self.nombre = nombre  # pasa por el setter con validación
+        self.nombre = nombre
 
     @property
     def nombre(self) -> str:
@@ -253,7 +251,6 @@ class Cita:
             datos["especialidad"],
             date.fromisoformat(datos["fecha"]),
         )
-        # Se restaura el estado guardado respetando las reglas del modelo.
         try:
             estado = EstadoCita(datos["estado"])
         except (KeyError, ValueError) as error:
