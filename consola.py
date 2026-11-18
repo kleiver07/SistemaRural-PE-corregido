@@ -37,7 +37,6 @@ def parsear_fecha(texto: str) -> date:
     if not texto:
         raise DatoInvalidoError("La fecha no puede estar vacía.")
 
-    # Formato ISO (AAAA-MM-DD), que es el que se guarda en el JSON.
     try:
         return date.fromisoformat(texto)
     except ValueError:
@@ -73,7 +72,6 @@ class InterfazConsola:
             "6": self._reporte_semanal,
         }
 
-    # ---------- Utilidades de entrada ----------
     def _pedir(self, mensaje: str) -> str:
         return self._entrada(f"{mensaje}: ").strip()
 
@@ -95,7 +93,6 @@ class InterfazConsola:
             raise DatoInvalidoError("Número de especialidad fuera de rango.")
         return ESPECIALIDADES[indice - 1]
 
-    # ---------- Manejadores de cada opción ----------
     def _registrar_paciente(self) -> None:
         nombre = self._pedir("Nombre completo")
         dni = self._pedir("DNI (8 dígitos)")
@@ -138,7 +135,6 @@ class InterfazConsola:
             self._salida(f"  {especialidad}: {cantidad}")
         self._salida(f"  Total: {reporte['total']}")
 
-    # ---------- Bucle principal ----------
     def ejecutar(self) -> None:
         try:
             while True:
@@ -154,7 +150,6 @@ class InterfazConsola:
                 try:
                     manejador()
                 except SistemaRuralError as error:
-                    # Error esperado del negocio: se informa y el programa continúa.
                     self._salida(f"No se pudo completar la operación: {error}")
         except (EOFError, KeyboardInterrupt):
             self._salida("\nHasta pronto.")
