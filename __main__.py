@@ -10,7 +10,6 @@ from .seguridad import GestorSeguridad
 
 
 def principal() -> None:
-    # Los datos se guardan fuera del código; la carpeta puede cambiarse con una variable de entorno.
     carpeta = Path(
         os.environ.get(
             "SISTEMARURAL_DATOS",
